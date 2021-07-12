@@ -14,26 +14,28 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const filteredHandler = () => {
-      switch (status) {
-        case "completed":
-          setFilteredTodos(todos.filter((todo) => todo.completed === true));
-          break;
-        case "uncompleted":
-          setFilteredTodos(todos.filter((todo) => todo.completed === false));
-          break;
-        default:
-          setFilteredTodos(todos);
-          break;
-      }
-    };
     filteredHandler();
+
     saveLocalTodos();
   }, [todos, status]);
 
+  const filteredHandler = () => {
+    switch (status) {
+      case "completed":
+        setFilteredTodos(todos.filter((todo) => todo.completed === true));
+        break;
+      case "uncompleted":
+        setFilteredTodos(todos.filter((todo) => todo.completed === false));
+        break;
+      default:
+        setFilteredTodos(todos);
+        break;
+    }
+  };
   const saveLocalTodos = () => {
     localStorage.getItem("todos", JSON.stringify(todos));
   };
+
   const getLocalTodos = () => {
     if (localStorage.getItem("todos") === null) {
       localStorage.setItem("todos", JSON.stringify([]));
@@ -48,6 +50,7 @@ function App() {
       <header>
         <h1>ToDoList </h1>
       </header>
+
       <Form
         inputText={inputText}
         todos={todos}
